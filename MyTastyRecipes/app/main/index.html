@@ -6,18 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>TastyRecipes</title>
+    <link href="../../Content/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="/Content/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/Content/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="../../Content/main.css" rel="stylesheet" />
 </head>
 <body>
-    <p>Hello from index!</p>
-    <a href="#" ui-sref="home">HOME</a>
+    <!-- Header -->
+    <div id="header-wrapper">
 
+        <div id="header">
+            <ul style="margin-left:75%">
+                <btn-details></btn-details>
+            </ul>
+
+            <!-- Logo -->
+            <h1><a href="#" ui-sref="home">Tasty Recipes</a></h1>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li><a href="#" ui-sref="home">Home</a></li>
+                    <li><a href="#">Recipes</a></li>
+                    <li><a href="#" ui-sref="share">Share Recipe</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
     <div ui-view>
+
+       
     </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="12u">
+
+                <!-- Copyright -->
+                <div id="copyright">
+                    <ul class="links">
+                        <li>&copy; Untitled. All rights reserved.</li>
+                        <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="../../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../../Scripts/jquery.dropotron.min.js"></script>
+    <script src="../../Scripts/skel.min.js"></script>
+    <script src="../../Scripts/skel-viewport.min.js"></script>
+    <script src="../../Scripts/main.js"></script>
+    <script src="../../Scripts/util.js"></script>
+    <script src="../../Scripts/bootstrap.min.js"></script>
     <script src="../../Scripts/angular.min.js"></script>
+    <script src="../../bower_components/angular-ui-tinymce/dist/tinymce.min.js"></script>
+    <script src="../../bower_components/tinymce/tinymce.min.js"></script>
+    <script src="../../Scripts/angular-cookies.js"></script>
+    <script src="../../Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="../../app/main/app.js"></script>
+    <script src="../../app/main/routes/app.routes.js"></script>
     <script src="../../Scripts/angular-route.js"></script>
     <script src="../../Scripts/angular-ui-router.js"></script>
-    <script src="../../Scripts/app.routes.js"></script>
-    <script src="../../Scripts/app.js"></script>
+    <script src="../../app/main/NAV/user.service.js"></script>
+    <script src="../../app/main/NAV/login/login.controller.js"></script>
+    <script src="../../app/main/NAV/register/register.controller.js"></script>
+    <script src="../../app/main/recipes/recipes.controller.js"></script>
+    <script src="../../app/main/NAV/btn.component.js"></script>
 </body>
 </html>
