@@ -233,6 +233,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\RecipeController.cs" />
+    <Compile Include="Controllers\Api\RecipeIngredientsController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -248,14 +249,23 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\main\directives\filePreview.directive.js" />
+    <Content Include="app\main\directives\fileUpload.directive.js" />
+    <Content Include="app\main\home\home.controller.js" />
     <Content Include="app\main\home\home.html" />
     <Content Include="app\main\index.html" />
     <Content Include="app\main\NAV\login\login.html" />
     <Content Include="app\main\NAV\register\register.html" />
     <Content Include="app\main\NAV\btnDetails.html" />
     <Content Include="app\main\recipes\makeRecipe.html" />
+    <Content Include="app\main\recipes\recipeIngredients.service.js" />
     <Content Include="app\main\recipes\recipes.controller.js" />
+    <Content Include="app\main\recipes\recipes.service.js" />
+    <Content Include="app\main\recipes\viewRecipes\viewRecipes.controller.js" />
+    <Content Include="app\main\recipes\viewRecipes\recipes.html" />
+    <Content Include="app\main\recipes\viewRecipes\viewRecipes.service.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="bower_components\angular-img-cropper\dist\angular-img-cropper.min.js" />
     <Content Include="bower_components\angular-ui-tinymce\dist\tinymce.min.js" />
     <Content Include="bower_components\angular-ui-tinymce\src\tinymce.js" />
     <Content Include="bower_components\angular\angular-csp.css" />
@@ -529,6 +539,10 @@
     <Content Include="bower_components\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="bower_components\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="bower_components\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="bower_components\angular-img-cropper\.bower.json" />
+    <Content Include="bower_components\angular-img-cropper\bower.json" />
+    <Content Include="bower_components\angular-img-cropper\LICENSE.md" />
+    <Content Include="bower_components\angular-img-cropper\README.md" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="app\main\NAV\btn.component.js" />
     <Content Include="app\main\app.js" />
@@ -576,6 +590,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\Recipe\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,4 +1,4 @@
-﻿<div class="container" style="margin-top:1%;">
+﻿<div class="container" style="margin-top:1%;" ng-show="recipeCtrl.show">
     <div class="row vertical-offset-100">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
@@ -10,21 +10,21 @@
                         <fieldset>
                             <div class="form-group">
                                 Name of dessert:
-                                <input class="form-control" placeholder="Title" name="title" type="text" >
+                                <input class="form-control" placeholder="title" name="title" type="text" ng-model="recipeCtrl.name">
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Picture of dessert:</label>
-                                        <input class="form-control" type="file">
+                                        <input class="form-control" type="file" accept="image/*" id="fileUploadInput" img-cropper-fileread image="recipeCtrl.cropper.sourceImage">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <!--Placeholder for file preview-->
-                                    <img src="https://www.browneyedbaker.com/wp-content/uploads/2008/06/thick-chewy-chocolate-chip-cookies-21-600.jpg" height="100" width="180" />
+                                <div ng-show="recipeCtrl.cropper.croppedImage" class="col-md-6">
+                                    <center><canvas width="160" height="100" id="myCanvas" image-cropper image="recipeCtrl.cropper.sourceImage" cropped-image="recipeCtrl.cropper.croppedImage" crop-width="400" crop-height="200" keep-aspect="true" touch-radius="30" crop-area-bounds="recipeCtrl.bounds"></canvas></center>
                                 </div>
+                                <div ng-show="recipeCtrl.cropper.croppedImage"><center><img ng-src="{{recipeCtrl.cropper.croppedImage}}" /></center></div>
                             </div>
-                            <input class="btn-sm btn-success pull-right" type="submit" value="Next">
+                            <button class="btn-sm pull-right" ng-click="recipeCtrl.fileUpload()">Next</button>
                         </fieldset>
                     </form>
                 </div>
@@ -32,26 +32,36 @@
         </div>
     </div>
 </div>
-<div class="container">
+<p></p>
+<div class="container" ng-hide="recipeCtrl.hide">
     <div class="row">
         <div class="col-md-12">
-            <h1>RECIPE NAME GOES HERE</h1>
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <h1>{{recipeCtrl.recipeBaseContent.Name}}</h1>
+
+            </div>
+
         </div>
         <div class="col-md-12">
-            <img src="https://www.browneyedbaker.com/wp-content/uploads/2008/06/thick-chewy-chocolate-chip-cookies-21-600.jpg" height="600" width="800" />
+            <img src="/images/Recipe/{{recipeCtrl.recipeBaseContent.SystemFileName}}" height="400" width="800" />
         </div>
         <div class="col-md-12">
             <div class="col-md-5">
                 <label>Time: </label>
-                <input style="width:50px; margin-left:4px" />
-                <select>
-                    <option>mins</option>
-                    <option>hrs</option>
+                <input type="number" style="width:50px; margin-left:4px" ng-model="recipeCtrl.timeInput" />
+                <select ng-model="recipeCtrl.timeOption">
+                    <option value="min">min</option>
+                    <option value="mins">mins</option>
+                    <option value="hr">hr</option>
+                    <option value="hrs">hrs</option>
                 </select>
             </div>
             <div class="col-md-5">
                 <label>Yields:</label>
-                Serves <input style="width:50px; margin-left:4px"/> people.
+                Serves <input type="number" style="width:50px; margin-left:4px" ng-model="recipeCtrl.yieldsInput"/> people.
             </div>
         </div>
     </div>
@@ -59,63 +69,72 @@
         <div class="col-md-6">
             <h1>Add ingredients</h1>
             <div>
-                Measurements: <input  style="width:50px; margin-left:4px;" />
-                <select style="margin-right:10px;">
-                    <option>
+                Measurements: <input type="number" style="width:50px; margin-left:4px;" ng-model="recipeCtrl.measurementInput"/>
+                <select style="margin-right:10px;" ng-model="recipeCtrl.measurementOption">
+                    <option value="tsp">
                         tsp
                     </option>
-                    <option>
+                    <option value="tbsp">
                         tbsp
                     </option>
-                    <option>
+                    <option value="fl oz">
                         fl oz
                     </option>
-                    <option>
+                    <option value="cup">
                         cup
                     </option>
-                    <option>
+                    <option value="cups">
+                        cups
+                    </option>
+                    <option value="pint">
                         pint
                     </option>
-                    <option>
+                    <option value="ml">
                         ml
                     </option>
-                    <option>
+                    <option value="l">
                         l
                     </option>
-                    <option>
+                    <option value="pound">
                         pound
                     </option>
-                    <option>
+                    <option value="ounce">
                         ounce
                     </option>
-                    <option>
+                    <option value="mg">
                         mg
                     </option>
-                    <option>
+                    <option value="g">
                         g
                     </option>
-                    <option>
+                    <option value="kg">
                         kg
                     </option>
-                    <option>
+                    <option value="quart">
                         quart
                     </option>
                 </select>
-                Ingredient: <input /> <button class="btn-sm">Add</button>
+                <!--<button ng-click="recipeCtrl.testFunction()">Test</button>-->
+                Ingredient: <input ng-model="recipeCtrl.ingredientInput" /> <button class="btn-sm" ng-click="recipeCtrl.postIngredient()" ng-show="recipeCtrl.showAdd">Add</button>
+                <button class="btn-sm" ng-click="recipeCtrl.updateIngredient()" ng-hide="recipeCtrl.hideUpdate">Update</button>
             </div>
         </div>
         <div class="col-md-6">
             <h1>Ingredients</h1>
-            <p>1 cup Milk</p>
+
+            <div ng-repeat="data in recipeCtrl.allIngredients">
+                <span>{{data.Number}} </span><span> {{data.Measurements}} </span><span> {{data.Ingredient}} </span><button class="btn-sm" ng-click="recipeCtrl.getIngredientById(data.Id)">Edit</button><button class="btn-sm" ng-click="recipeCtrl.deleteIngredient(data.Id)">X</button>
+            </div>
+            
         </div>
     </div>
     <div class="row">
         <h1>Instructions</h1>
         <div class="">
-            <textarea cols="75" rows="3"></textarea>
+            <textarea cols="75" rows="3" ng-model="recipeCtrl.instructions"></textarea>
         </div>
         <div class="col-md-11" style="margin-left:65%">
-            <button>Finish</button>
+            <button ng-click="recipeCtrl.updateRecipe()">Finish</button>
         </div>
     </div>
 </div>

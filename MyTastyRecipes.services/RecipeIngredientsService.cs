@@ -11,19 +11,22 @@ using System.Threading.Tasks;
 
 namespace MyTastyRecipes.services
 {
-    public class RecipeService
+    public class RecipeIngredientsService
     {
-        public int Create(Recipe model)
+        public int Create(RecipeIngredients model)
         {
             int res = 0;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("dbo.Recipe_Insert", conn))
+                using (SqlCommand cmd = new SqlCommand("RecipeIngredients_Insert", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Name", model.Name);
-                    cmd.Parameters.AddWithValue("@ImageUrl", model.ImageUrl);
+                    cmd.Parameters.AddWithValue("@Number", model.Number);
+                    cmd.Parameters.AddWithValue("@Measurements", model.Measurements);
+                    cmd.Parameters.AddWithValue("@Ingredient", model.Ingredient);
+                    cmd.Parameters.AddWithValue("@RecipeId", model.RecipeId);
+
 
                     SqlParameter param = new SqlParameter("@Id", SqlDbType.Int);
                     param.Direction = ParameterDirection.Output;
@@ -37,42 +40,42 @@ namespace MyTastyRecipes.services
             return res;
         }
 
-        public List<AllRecipes> SelectAll()
+        public List<RecipeIngredients> SelectAll()
         {
-            List<AllRecipes> allRecipesList = new List<AllRecipes>();
+            List<RecipeIngredients> recipeIngredientsList = new List<RecipeIngredients>();
 
             string sqlConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Recipes_SelectAll", conn))
+                using (SqlCommand cmd = new SqlCommand("RecipeIngredients_SelectAll", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                     while (reader.Read())
                     {
-                        AllRecipes model = RecipesMapper(reader);
-                        allRecipesList.Add(model);
+                        RecipeIngredients model = Mapper(reader);
+                        recipeIngredientsList.Add(model);
                     }
                 }
 
                 conn.Close();
             }
 
-            return allRecipesList;
+            return recipeIngredientsList;
         }
 
-        public RecipeImageBase SelectById(int id)
+        public RecipeIngredients SelectById(int id)
         {
-            RecipeImageBase model = new RecipeImageBase();
+            RecipeIngredients model = new RecipeIngredients();
 
             string sqlConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("dbo.Recipe_SelectById_Create", conn))
+                using (SqlCommand cmd = new SqlCommand("RecipeIngredients_SelectById", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Id", id);
@@ -89,7 +92,7 @@ namespace MyTastyRecipes.services
             return model;
         }
 
-        public bool Update(Recipe model)
+        public bool Update(RecipeIngredients model)
         {
             bool res = false;
 
@@ -98,16 +101,14 @@ namespace MyTastyRecipes.services
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Recipe_Update", conn))
+                using (SqlCommand cmd = new SqlCommand("RecipeIngredients_Update", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Id", model.Id);
-                    cmd.Parameters.AddWithValue("@Name", model.Name);
-                    cmd.Parameters.AddWithValue("@ImageUrl", model.ImageUrl);
                     cmd.Parameters.AddWithValue("@Number", model.Number);
-                    cmd.Parameters.AddWithValue("@Time", model.Time);
-                    cmd.Parameters.AddWithValue("@Yields", model.Yields);
-                    cmd.Parameters.AddWithValue("@Instructions", model.Instructions);
+                    cmd.Parameters.AddWithValue("@Measurements", model.Measurements);
+                    cmd.Parameters.AddWithValue("@Ingredient", model.Ingredient);
+                    cmd.Parameters.AddWithValue("@RecipeId", model.RecipeId);
 
                     cmd.ExecuteNonQuery();
 
@@ -120,26 +121,39 @@ namespace MyTastyRecipes.services
             return res;
         }
 
-        private AllRecipes RecipesMapper(SqlDataReader reader)
+        public bool Delete(int id)
         {
-            AllRecipes model = new AllRecipes();
+            bool res = false;
+
+            string sqlConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("dbo.RecipeIngredients_Delete", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.ExecuteNonQuery();
+                    res = true;
+                }
+
+                conn.Close();
+            }
+
+            return res;
+        }
+
+        private RecipeIngredients Mapper(SqlDataReader reader)
+        {
+            RecipeIngredients model = new RecipeIngredients();
             int index = 0;
 
             model.Id = reader.GetInt32(index++);
-            model.Name = reader.GetString(index++);
-            model.SystemFileName = reader.GetString(index++);
-
-            return model;
-        }
-
-        private RecipeImageBase Mapper(SqlDataReader reader)
-        {
-            RecipeImageBase model = new RecipeImageBase();
-            int index = 0;
-
-            model.Name = reader.GetString(index++);
-            model.FileId = reader.GetInt32(index++);
-            model.SystemFileName = reader.GetString(index++);
+            model.Number = reader.GetInt32(index++);
+            model.Measurements = reader.GetString(index++);
+            model.Ingredient = reader.GetString(index++);
+            model.RecipeId = reader.GetInt32(index++);
 
             return model;
         }

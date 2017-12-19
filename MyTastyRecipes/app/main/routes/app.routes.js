@@ -17,7 +17,15 @@
                 name: 'home',
                 url: '/home',
                 templateUrl: '/app/main/home/home.html',
-                title: 'home'
+                title: 'home',
+                controller: 'homeController as homeCtrl'
+            })
+            .state({
+                name: 'recipe',
+                url: '/viewRecipes',
+                templateUrl: '/app/main/recipes/viewRecipes/recipes.html',
+                title: 'recipe',
+                controller: 'viewRecipeController as viewCtrl'
             })
             .state({
                 name: 'share',
