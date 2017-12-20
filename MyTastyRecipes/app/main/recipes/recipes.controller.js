@@ -5,11 +5,12 @@
         .module('publicApp')
         .controller('recipeController', RecipeController);
 
-    RecipeController.$inject = ['$scope', 'recipeService', 'recipeIngredientsService'];
+    RecipeController.$inject = ['$scope', '$location','recipeService', 'recipeIngredientsService'];
 
-    function RecipeController($scope, RecipeService, RecipeIngredientsService) {
-        var vm = this;
+    function RecipeController($scope, $location, RecipeService, RecipeIngredientsService) {
+        var vm = this; 
         vm.$scope = $scope;
+        vm.$location = $location;
         vm.$onInit = _onInit;
         vm.recipeService = RecipeService;
         vm.fileUpload = _fileUpload;
@@ -161,6 +162,8 @@
 
         function _updateRecipeSuccess(resp) {
             console.log(resp);
+            vm.$location.path('/viewRecipes');
+
         }
 
         function _updateRecipeError(err) {

@@ -46,6 +46,40 @@ namespace MyTastyRecipes.Controllers.Api
             }
         }
 
+        [Route("get/{id:int}"), HttpGet, AllowAnonymous]
+        public HttpResponseMessage SelectById(int id)
+        {
+            LinksModel res = new LinksModel();
+            LinksService svc = new LinksService();
+
+            try
+            {
+                res = svc.SelectById(id);
+                return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (System.Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPut, AllowAnonymous, Route("update")]
+        public HttpResponseMessage Update(LinksModel model)
+        {
+            bool res = false;
+            LinksService svc = new LinksService();
+
+            try
+            {
+                res = svc.Update(model);
+                return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (System.Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpDelete, AllowAnonymous, Route("delete/{id:int}")]
         public HttpResponseMessage Delete(int id)
         {

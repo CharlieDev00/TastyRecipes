@@ -62,6 +62,59 @@ namespace MyTastyRecipes.services
             return linksList;
         }
 
+        public LinksModel SelectById(int id)
+        {
+            LinksModel model = new LinksModel();
+
+            string sqlConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("Links_SelectById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        model = Mapper(reader);
+                    }
+                }
+
+                conn.Close();
+            }
+
+            return model;
+        }
+
+        public bool Update(LinksModel model)
+        {
+            bool res = false;
+
+            string sqlConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("Links_Update", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
+                    cmd.Parameters.AddWithValue("@Title", model.Title);
+                    cmd.Parameters.AddWithValue("@Url", model.Url);
+
+                    cmd.ExecuteNonQuery();
+
+                    res = true;
+                }
+
+                conn.Close();
+            }
+
+            return res;
+        }
+
         public bool Delete(int id)
         {
             bool res = false;

@@ -12,6 +12,8 @@
             getAllLinks: _getAllLinks,
             saveLink: _saveLink,
             getSavedLinks: _getSavedLinks,
+            getLinkById : _getLinkById,
+            updateLink : _updateLink,
             deleteLink: _deleteLink
         };
 
@@ -25,6 +27,14 @@
 
         function _getSavedLinks() {
             return $http.get('/api/links/getall').then(success).catch(error);
+        }
+
+        function _getLinkById(id) {
+            return $http.get('/api/links/get/' + id).then(success).catch(error);
+        }
+
+        function _updateLink(data) {
+            return $http.put('/api/links/update', data).then(success).catch(error);
         }
 
         function _deleteLink(id) {

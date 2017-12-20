@@ -18,6 +18,7 @@
         vm.saveLinks = _saveLinks;
         vm.saveLinkSuccess = _saveLinkSuccess;
         vm.saveLinkError = _saveLinkError;
+        vm.baseUrl = 'https://www.tripadvisor.com/';
         vm.links = {};
         vm.linkContent = {};
 

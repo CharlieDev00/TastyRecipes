@@ -1,12 +1,73 @@
 ﻿<div>
-    <h1>Saved Bakeries</h1>
+    <center>
+        <h1>Saved Links</h1>
+        <button class="btn-sm" data-toggle="modal" data-target="#linkEdit" ng-click="savedCtrl.setViews()">Create a link!</button>
+    </center>
 </div>
 <div claas="col-md-12">
     <div class="col-md-6 col-lg-6" ng-repeat="data in savedCtrl.links" style="margin-left:2%">
         <h3>{{data.Title}}</h3>
         <a href="https://www.tripadvisor.com/{{data.Url}}">Check this out!</a>
         <br />
+        <button class="btn-sm" data-toggle="modal" data-target="#linkEdit" ng-click="savedCtrl.getLink(data.Id)">Edit link</button>
         <button class="btn-sm" ng-click="savedCtrl.deleteLink(data.Id)">Delete link</button>
+    </div>
+</div>
+<div class="modal fade" role="dialog" id="linkEdit">
+    <div class="modal-dialog">
+        <div class="container col-md-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="row mail-header">
+                                <div class="col-md-6">
+                                    <h3 ng-show="savedCtrl.make">Make a Link</h3>
+                                    <h3 ng-hide="savedCtrl.edit">Edit Link</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pull-right tooltip-show">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="space-20"></div>
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-2">
+                                            Title:
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" ng-model="savedCtrl.linkContent.Title">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-2">
+                                            Url:
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" ng-model="savedCtrl.linkContent.Url">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="space-20"></div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="text-right">
+                                        <button class="btn-sm" data-dismiss="modal" ng-hide="savedCtrl.edit" ng-click="savedCtrl.updateLink()">Update</button>
+                                        <button class="btn-sm" data-dismiss="modal" ng-show="savedCtrl.make" ng-click="savedCtrl.makeLink()">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
