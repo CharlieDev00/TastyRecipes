@@ -21,6 +21,20 @@
                 controller: 'homeController as homeCtrl'
             })
             .state({
+                name: 'links',
+                url: '/bakeries',
+                templateUrl: '/app/main/links/links.html',
+                title: 'links',
+                controller: 'linksController as linksCtrl'
+            })
+            .state({
+                name: 'saved',
+                url: '/SavedBakeries',
+                templateUrl: '/app/main/links/savedLinks.html',
+                title: 'saved',
+                controller: 'savedLinksController as savedCtrl'
+            })
+            .state({
                 name: 'recipe',
                 url: '/viewRecipes',
                 templateUrl: '/app/main/recipes/viewRecipes/recipes.html',

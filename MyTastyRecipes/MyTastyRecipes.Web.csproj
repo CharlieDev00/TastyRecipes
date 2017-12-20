@@ -232,9 +232,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\LinksController.cs" />
     <Compile Include="Controllers\Api\RecipeController.cs" />
     <Compile Include="Controllers\Api\RecipeIngredientsController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
+    <Compile Include="Controllers\Api\WebScrapingController .cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -254,6 +256,11 @@
     <Content Include="app\main\home\home.controller.js" />
     <Content Include="app\main\home\home.html" />
     <Content Include="app\main\index.html" />
+    <Content Include="app\main\links\links.controller.js" />
+    <Content Include="app\main\links\links.html" />
+    <Content Include="app\main\links\links.service.js" />
+    <Content Include="app\main\links\savedLinks.controller.js" />
+    <Content Include="app\main\links\savedLinks.html" />
     <Content Include="app\main\NAV\login\login.html" />
     <Content Include="app\main\NAV\register\register.html" />
     <Content Include="app\main\NAV\btnDetails.html" />

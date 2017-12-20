@@ -1,0 +1,12 @@
+﻿<div>
+    <h1>Bakeries</h1>
+    <p>Too lazy to make anything? Heres a couple of bakeries that have great desserts!</p>
+</div>
+<div claas="col-md-12">
+    <div class="col-md-6 col-lg-6" ng-repeat="data in linksCtrl.links" style="margin-left:2%">
+        <h3>{{data.Title}}</h3>
+        <a href="https://www.tripadvisor.com/{{data.Url}}">Check this out!</a>
+        <br />
+        <button class="btn-sm" ng-click="linksCtrl.saveLinks(data)">Save link!</button>
+    </div>
+</div>

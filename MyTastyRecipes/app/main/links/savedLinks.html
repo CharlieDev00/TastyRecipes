@@ -1,0 +1,12 @@
+﻿<div>
+    <h1>Saved Bakeries</h1>
+</div>
+<div claas="col-md-12">
+    <div class="col-md-6 col-lg-6" ng-repeat="data in savedCtrl.links" style="margin-left:2%">
+        <h3>{{data.Title}}</h3>
+        <a href="https://www.tripadvisor.com/{{data.Url}}">Check this out!</a>
+        <br />
+        <button class="btn-sm" ng-click="savedCtrl.deleteLink(data.Id)">Delete link</button>
+    </div>
+</div>
+
